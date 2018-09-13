@@ -39,6 +39,7 @@ const leveldown = require('leveldown');
 const levelup = require('levelup');
 const lockfile = require('proper-lockfile');
 const fs = require('fs-extra');
+const process = require('process');
 
 const {level_get, join} = require('./utils');
 const {rclone_lsjson, load_previous_objects, empty_dir_placeholder_maintain} = require('./rclone-ops');
@@ -115,6 +116,7 @@ async function setupSync(STATE_PATH) {
   try {
     await validateSyncProcess(app);
   } catch(err) {
+    process.exitCode = 1;
     console.error(err);
   }
 
